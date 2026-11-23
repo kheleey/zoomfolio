@@ -30,6 +30,20 @@ Move to the next section with the dropdown, the arrows, a swipe or the arrow key
 - **Colour themes:** Ivory, Noir and Sage.
 - **Sound:** an optional whoosh.
 
+## ✦ AI summary
+
+A short AI-written summary of the CV sits beside it, or behind the ✦ button on smaller screens. Out of the box it shows a sample (`aiSample`). To have an AI write it live from your CV, add a key to the `ai` settings in the `window.CV` block:
+
+```js
+// Anthropic
+ai: { provider: 'anthropic', apiKey: 'sk-ant-…', model: 'claude-haiku-5-5', baseURL: '' },
+
+// or any OpenAI-compatible service (OpenAI, DeepSeek, …)
+ai: { provider: 'openai', apiKey: 'sk-…', model: 'your-model-name', baseURL: 'https://api.openai.com/v1' },
+```
+
+**Keep your key private.** A key written into this file can be seen by anyone who opens the page. Never commit a real key to a public repository. Only add one in your own local copy, or use a key with a strict spending limit.
+
 ## Make it yours
 
 Edit the `window.CV` block near the top of `index.html`: name, role, contact, experience, projects, skills, education, awards and languages.

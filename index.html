@@ -561,6 +561,52 @@ body.lay-playful .btn{border-radius:99px;font-family:var(--fun);font-weight:700;
   #layMenu b{font-size:16px}
   #layMenu small{font-size:10px;line-height:1.3}
 }
+/* ✦ AI summary card */
+.ai{font-family:var(--ai-sans);color:var(--ai-ink)}
+.ai-h{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.ai-star{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(var(--ai-accRGB),.14);color:var(--ai-acc);font-size:14px;animation:aiTw 3.6s ease-in-out infinite}
+@keyframes aiTw{50%{transform:rotate(180deg) scale(1.08)}}
+.ai-h b{font-family:var(--ai-serif);font-size:21px;font-weight:600;letter-spacing:.01em;white-space:nowrap}
+.ai-tag{margin-left:auto;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ai-acc);border:1px solid rgba(var(--ai-accRGB),.4);border-radius:99px;padding:4px 9px;white-space:nowrap;max-width:46%;overflow:hidden;text-overflow:ellipsis}
+.ai-x{font-size:24px;line-height:1;color:var(--ai-dim);padding:0 2px 2px 6px}
+.ai-text{font-family:var(--ai-serif);font-size:17.5px;line-height:1.5;min-height:1.5em}
+.ai:not(.done) .ai-text::after{content:"";display:inline-block;width:2px;height:1em;margin-left:2px;vertical-align:-2px;background:var(--ai-acc);animation:aiCaret .8s steps(2) infinite}
+.ai.loading .ai-text::after,.ai.loading .ai-text{display:none}
+@keyframes aiCaret{50%{opacity:0}}
+.ai-sk{display:none;gap:9px;flex-direction:column;margin:6px 0 4px}
+.ai.loading .ai-sk{display:flex}
+.ai-sk i{height:11px;border-radius:6px;background:linear-gradient(90deg,var(--ai-line),rgba(var(--ai-accRGB),.22),var(--ai-line));background-size:200% 100%;animation:aiSh 1.3s linear infinite}
+.ai-sk i:nth-child(2){width:92%}.ai-sk i:nth-child(3){width:96%}.ai-sk i:nth-child(4){width:60%}
+@keyframes aiSh{to{background-position:-200% 0}}
+.ai-pts{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ai-pts li{font-size:12px;line-height:1.3;padding:6px 10px;border-radius:99px;background:rgba(var(--ai-accRGB),.1);border:1px solid rgba(var(--ai-accRGB),.25);opacity:0;transform:translateY(6px);animation:aiIn .5s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--k) * 110ms)}
+.ai-fit{font-family:var(--ai-serif);font-style:italic;font-size:15.5px;line-height:1.4;color:var(--ai-dim);margin-top:12px;opacity:0;transition:opacity .6s .35s}
+.ai.done .ai-fit{opacity:1}
+@keyframes aiIn{to{opacity:1;transform:none}}
+.ai-f{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 10px;margin-top:14px;padding-top:12px;border-top:1px solid var(--ai-line)}
+.ai-note{flex:1 1 150px;font-size:11px;line-height:1.4;color:var(--ai-dim)}
+.ai-btns{display:flex;gap:6px;flex:0 0 auto}
+.ai-b{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;padding:8px 11px;border-radius:99px;border:1px solid rgba(var(--ai-accRGB),.45);color:var(--ai-acc);white-space:nowrap}
+.ai-b:hover{background:rgba(var(--ai-accRGB),.1)}
+.ai-b[hidden]{display:none}
+
+:root{--ai-serif:var(--serif);--ai-sans:var(--sans)}
+body{--ai-ink:var(--ink);--ai-dim:var(--soft);--ai-acc:var(--accent);--ai-accRGB:var(--accentRGB);--ai-line:var(--faint)}
+#aiDock{position:fixed;z-index:12;right:calc(env(safe-area-inset-right) + 36px);top:50%;width:300px;padding:22px 20px 16px;border-radius:12px;background:var(--paper);color:var(--ink);
+  box-shadow:0 26px 60px rgba(0,0,0,.34),0 2px 6px rgba(0,0,0,.12);transform:translateY(-50%) rotate(1.3deg);transition:opacity .5s,transform .7s cubic-bezier(.2,.8,.2,1);display:none}
+#aiDock:before{content:"";position:absolute;top:-11px;left:50%;width:86px;height:22px;margin-left:-43px;background:rgba(var(--accentRGB),.24);transform:rotate(-2.5deg)}
+#aiDock .ai-x{display:none}
+body.ai-docked #aiDock{display:block}
+body.ai-docked:not(.overview) #aiDock,body.flying #aiDock{opacity:0;pointer-events:none;transform:translateY(-46%) rotate(3deg)}
+body.ai-docked #aiChip{display:none}
+.chip.ai-chip{display:flex;align-items:center;gap:6px}
+#aiScrim{position:fixed;inset:0;z-index:39;background:rgba(0,0,0,.38);opacity:0;pointer-events:none;transition:opacity .4s}
+#aiScrim.open{opacity:1;pointer-events:auto}
+#aiSheet{position:fixed;z-index:40;left:0;right:0;bottom:0;max-height:80dvh;overflow:auto;padding:22px 20px calc(env(safe-area-inset-bottom) + 18px);background:var(--paper);color:var(--ink);
+  border-radius:22px 22px 0 0;box-shadow:0 -20px 60px rgba(0,0,0,.35);transform:translateY(105%);transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+#aiSheet.open{transform:none}
+@media (min-width:760px){#aiSheet{left:50%;right:auto;width:440px;margin-left:-220px;bottom:24px;border-radius:20px}#aiSheet:not(.open){transform:translateY(calc(100% + 40px))}}
+@media (max-width:760px){.chip.ai-chip span{display:none}.chip.ai-chip{padding:8px 11px}}
 </style>
 </head>
 <body data-theme="ivory" class="overview">
@@ -568,6 +614,7 @@ body.lay-playful .btn{border-radius:99px;font-family:var(--fun);font-weight:700;
 <header class="bar">
   <div class="who"><div class="mono" id="bMono">AM</div><div><b id="bName">Alex Morgan</b><span id="bRole">Creative Technologist</span></div></div>
   <div class="tools">
+    <button class="chip ai-chip" id="aiChip" aria-label="AI summary">✦<span>AI summary</span></button>
     <div class="lay"><button class="chip" id="layBtn" aria-haspopup="true" aria-expanded="false">Layout</button><div id="layMenu" role="menu"></div></div>
     <div class="themes" id="themes" aria-label="Choose a colour"></div>
     <button class="chip" id="snd" aria-pressed="false" aria-label="Whoosh sound">♪ Off</button>
@@ -593,6 +640,7 @@ body.lay-playful .btn{border-radius:99px;font-family:var(--fun);font-weight:700;
   <div id="dbody"></div>
 </section>
 <div id="toast"></div>
+<aside id="aiDock" aria-label="AI summary"></aside><div id="aiScrim"></div><section id="aiSheet" role="dialog" aria-label="AI summary"></section>
 
 <!-- =========================================================
      1. YOUR CV — edit everything in this block
@@ -632,13 +680,93 @@ window.CV = {
     { title: 'BA Graphic Communication', org: 'Harbourside University', years: '2010 — 2014', note: 'First-class honours.' }
   ],
   awards: [['2025', 'Gold · Interactive Design Awards'], ['2024', 'Site of the Day · Web Craft Gallery'], ['2022', 'Shortlist · Digital Craft Prize']],
-  languages: [['English', 'native'], ['中文', 'fluent'], ['Français', 'conversational']]
+  languages: [['English', 'native'], ['中文', 'fluent'], ['Français', 'conversational']],
+  /* ✦ AI SUMMARY: paste an API key to have an AI write the summary live. Left blank, the sample below is shown.
+     Anthropic:          provider: 'anthropic', model: 'claude-haiku-5-5'
+     OpenAI-compatible:  provider: 'openai', baseURL: 'https://api.openai.com/v1' (or e.g. 'https://api.deepseek.com'), model: the provider's model name
+     A key written here can be seen by anyone who opens the page: keep it to your own copy, or use one with a low spending limit. */
+  ai: { provider: 'anthropic', apiKey: '', model: 'claude-haiku-5-5', baseURL: '' },
+  aiSample: {
+    summary: 'Alex Morgan is a creative technologist with eight years of experience turning ambitious ideas into polished, interactive work. They pair a designer\'s eye for typography, motion and art direction with deep front-end and WebGL engineering, and have led small teams from first sketch to launch for global brands. Their work is consistently fast, accessible and memorable.',
+    strengths: ['Design and engineering in one person', 'Leads small teams from pitch to launch', 'Proven at scale: 2M+ users a month'],
+    bestFor: 'Best fit: creative technology, interactive product and brand experience roles.'
+  }
 };
 </script>
 
 <!-- =========================================================
      2. THE PAGE, THE ZOOM AND THE SIX TEMPLATES
      ========================================================= -->
+<script>
+/* ✦ AI summary: reads this CV and writes a short summary for whoever is looking at it.
+   With no API key in window.CV.ai it shows the sample in window.CV.aiSample instead. */
+window.AISummary = (function () {
+  const CV = window.CV, $q = (r, s) => r.querySelector(s), esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const cfg = () => Object.assign({ provider: 'anthropic', apiKey: '', model: '', baseURL: '' }, CV.ai || {});
+  function cvText() {
+    const L = [`${CV.name}, ${CV.role}, ${CV.location}`, CV.summary, CV.about || '', 'Experience:'];
+    (CV.experience || []).forEach(j => L.push(`- ${j.role}, ${j.org} (${j.from}–${j.to}): ${(j.points || []).join(' ')}`));
+    L.push('Skills: ' + (CV.skills || []).map(g => `${g.group}: ${g.items.map(i => i[0]).join(', ')}`).join('; '));
+    L.push('Projects: ' + (CV.projects || []).map(p => `${p.name} (${p.role}): ${p.text || ''}`).join(' | '));
+    L.push('Education: ' + (CV.education || []).map(e => `${e.title}, ${e.org}`).join('; '));
+    if (CV.awards) L.push('Awards: ' + CV.awards.map(a => a[1]).join('; '));
+    return L.join('\n');
+  }
+  const prompt = () => `Read this CV and write a short summary for a recruiter. Reply with JSON only, no other text, in this shape:
+{"summary": "three warm, specific sentences in the third person", "strengths": ["three strengths, at most seven words each"], "bestFor": "one sentence starting with 'Best fit:'"}
+
+CV:
+${cvText()}`;
+  async function ask() {
+    const c = cfg(), body = prompt();
+    if (c.provider === 'openai') {
+      const r = await fetch((c.baseURL || 'https://api.openai.com/v1').replace(/\/$/, '') + '/chat/completions', { method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + c.apiKey },
+        body: JSON.stringify({ model: c.model, temperature: .6, messages: [{ role: 'user', content: body }] }) });
+      if (!r.ok) throw new Error(`${r.status} ${(await r.text()).slice(0, 140)}`);
+      return (await r.json()).choices[0].message.content;
+    }
+    const r = await fetch((c.baseURL || 'https://api.anthropic.com').replace(/\/$/, '') + '/v1/messages', { method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-api-key': c.apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: c.model || 'claude-haiku-5-5', max_tokens: 600, messages: [{ role: 'user', content: body }] }) });
+    if (!r.ok) throw new Error(`${r.status} ${(await r.text()).slice(0, 140)}`);
+    return (await r.json()).content.map(b => b.text || '').join('');
+  }
+  function parse(t) { const m = /\{[\s\S]*\}/.exec(t || ''); if (m) { try { const j = JSON.parse(m[0]); if (j.summary) return { summary: j.summary, strengths: (j.strengths || []).slice(0, 4), bestFor: j.bestFor || '' }; } catch (e) {} } return { summary: (t || '').trim(), strengths: [], bestFor: '' }; }
+  const cacheKey = () => { let h = 0; const s = cvText() + cfg().model; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return 'ai-summary-' + h; };
+
+  function mount(host, opts = {}) {
+    host.innerHTML = `<div class="ai"><div class="ai-h"><span class="ai-star">✦</span><b>AI summary</b><span class="ai-tag"></span>${opts.close ? '<button class="ai-x" aria-label="Close">×</button>' : ''}</div>
+      <div class="ai-sk"><i></i><i></i><i></i><i></i></div><p class="ai-text"></p><ul class="ai-pts"></ul><p class="ai-fit"></p>
+      <div class="ai-f"><span class="ai-note"></span><span class="ai-btns"><button class="ai-b" data-act="regen">↻ Regenerate</button><button class="ai-b" data-act="copy">Copy</button></span></div></div>`;
+    const el = $q(host, '.ai'), text = $q(el, '.ai-text'), pts = $q(el, '.ai-pts'), fit = $q(el, '.ai-fit'), tag = $q(el, '.ai-tag'), note = $q(el, '.ai-note'), regen = $q(el, '[data-act=regen]');
+    let data = null, run = 0;
+    if (opts.close) $q(el, '.ai-x').onclick = opts.close;
+    function show(d, label, msg) {
+      const id = ++run; data = d; el.classList.remove('loading'); tag.textContent = label; note.textContent = msg || '';
+      text.textContent = ''; pts.innerHTML = ''; fit.textContent = ''; el.classList.remove('done');
+      let i = 0; (function type() { if (id !== run) return; i = Math.min(d.summary.length, i + 2 + Math.floor(Math.random() * 3)); text.textContent = d.summary.slice(0, i);
+        if (i < d.summary.length) setTimeout(type, 16); else { pts.innerHTML = d.strengths.map((s, k) => `<li style="--k:${k}">${esc(s)}</li>`).join(''); fit.textContent = d.bestFor; el.classList.add('done'); } })();
+    }
+    async function generate(force) {
+      const c = cfg(), sample = CV.aiSample || { summary: CV.summary, strengths: [], bestFor: '' };
+      regen.hidden = !c.apiKey;
+      if (!c.apiKey) { show(sample, 'Sample', 'Add an API key in the CV settings to write this live.'); return; }
+      if (!force) { try { const hit = sessionStorage.getItem(cacheKey()); if (hit) { show(JSON.parse(hit), 'Live', `Written by ${c.model || 'AI'} from this CV.`); return; } } catch (e) {} }
+      run++; el.classList.add('loading'); el.classList.remove('done'); tag.textContent = 'Writing…'; note.textContent = ''; text.textContent = ''; pts.innerHTML = ''; fit.textContent = '';
+      try { const d = parse(await ask()); try { sessionStorage.setItem(cacheKey(), JSON.stringify(d)); } catch (e) {} show(d, 'Live', `Written by ${c.model || 'AI'} from this CV. Worth a quick check.`); }
+      catch (e) { const m = String(e.message || e), why = /Failed to fetch|NetworkError|Load failed/i.test(m) ? 'the browser couldn\'t reach the service: no internet, a firewall, or it doesn\'t accept requests from web pages'
+          : /^40[13]/.test(m) ? 'the key was rejected, so check it was copied in full' : /^404/.test(m) ? 'the model name wasn\'t found' : /^(402|429)/.test(m) ? 'no credit left, or too many requests' : m.slice(0, 90);
+        console.warn('AI summary:', m); show(sample, 'Sample', `Couldn't write it live: ${why}. Showing the sample.`); }
+    }
+    regen.onclick = () => generate(true);
+    $q(el, '[data-act=copy]').onclick = async () => { if (!data) return; const t = [data.summary, ...data.strengths.map(s => '• ' + s), data.bestFor].filter(Boolean).join('\n');
+      try { await navigator.clipboard.writeText(t); note.textContent = 'Copied.'; } catch (e) { note.textContent = 'Select the text to copy it.'; } };
+    let started = false;
+    return { start() { if (!started) { started = true; generate(false); } }, el };
+  }
+  return { mount };
+})();
+</script>
 <script>
 (function(){
 const CV=window.CV,$=s=>document.querySelector(s),body=document.body;
@@ -780,8 +908,9 @@ const OFF={shadow:'translate3d(18px,34px,-60px)',u2:'translate3d(10px,9px,-14px)
 let pose,mode='overview',cur=null,flying=false,mx=0,my=0,pmx=0,pmy=0;
 function overviewPose(){
   const vw=innerWidth,vh=innerHeight,narrow=vw<760,top=64,bottom=70;
-  const s=Math.min((vw*(narrow?.9:.82))/PW,(vh-top-bottom)/PH*(narrow?1.06:1));
-  return {fx:PW/2,fy:PH/2,s,rx:narrow?14:20,ry:narrow?-5:-11,rz:narrow?2.5:4,cy:(top-bottom)/2+6};
+  const dock=body.classList.contains('ai-docked'),room=dock?vw-380:vw;
+  const s=Math.min((room*(narrow?.9:.82))/PW,(vh-top-bottom)/PH*(narrow?1.06:1));
+  return {fx:PW/2,fy:PH/2,s,rx:narrow?14:20,ry:narrow?-5:-11,rz:narrow?2.5:4,cy:(top-bottom)/2+6,ox:dock?-190:0};
 }
 function rel(el){let x=0,y=0;const p=$('#paper');while(el&&el!==p){x+=el.offsetLeft;y+=el.offsetTop;el=el.offsetParent;}return {x,y};}
 function zonePose(k){ // a gentle approach: the section fills most of the screen, the page stays visible around it
@@ -791,7 +920,7 @@ function zonePose(k){ // a gentle approach: the section fills most of the screen
 function apply(p,t){
   const vw=innerWidth,vh=innerHeight,f=mode==='overview'&&!flying?1:0,fl=f?Math.sin((t||0)/1400)*5:0;
   const a=p.rz*Math.PI/180,dx=p.s*(p.fx-PW/2),dy=p.s*(p.fy-PH/2),ox=dx*Math.cos(a)-dy*Math.sin(a),oy=dx*Math.sin(a)+dy*Math.cos(a);
-  const tx=vw/2-PW/2-ox,ty=vh/2+p.cy-PH/2-oy+fl;
+  const tx=vw/2-PW/2-ox+(p.ox||0),ty=vh/2+p.cy-PH/2-oy+fl;
   const base=`translate3d(${tx}px,${ty}px,0) rotateX(${p.rx+f*(-pmy*5)}deg) rotateY(${p.ry+f*(pmx*7)}deg) rotateZ(${p.rz}deg) scale(${p.s})`;
   els.forEach(e=>e.style.transform=base+' '+OFF[e.id]);
 }
@@ -807,7 +936,7 @@ function fly(to,{dur=1250,dip=0,onP}={}){
     (function step(now){
       const p=Math.min(1,(now-t0)/dur),e=sine(p),z=smoother(p),v=Math.sin(Math.PI*p)*k;
       pose={fx:from.fx+(to.fx-from.fx)*e,fy:from.fy+(to.fy-from.fy)*e,s:Math.exp(lA+(lB-lA)*z-dip*Math.sin(Math.PI*e)),
-        rx:from.rx+(to.rx-from.rx)*e,ry:from.ry+(to.ry-from.ry)*e,rz:from.rz+(to.rz-from.rz)*e,cy:from.cy+(to.cy-from.cy)*e};
+        rx:from.rx+(to.rx-from.rx)*e,ry:from.ry+(to.ry-from.ry)*e,rz:from.rz+(to.rz-from.rz)*e,cy:from.cy+(to.cy-from.cy)*e,ox:(from.ox||0)+((to.ox||0)-(from.ox||0))*e};
       apply(pose,now);
       if(!RM){rig.style.filter=v>.08?`blur(${(v*1.3).toFixed(2)}px)`:'';rig.style.perspective=(1900-v*320)+'px';
         speed.style.opacity=(v*.3).toFixed(3);speed.style.transform=`scale(${(inward?1+p*.32:1.32-p*.32).toFixed(3)})`;}
@@ -898,7 +1027,15 @@ renderPaper(savedLay);
 let saved='ivory';try{saved=localStorage.getItem('folio-theme')||'ivory';}catch(e){}
 setTheme(THEMES.some(t=>t[0]===saved)?saved:'ivory');
 
-addEventListener('resize',()=>{if(flying)return;pose=mode==='detail'?zonePose(cur):overviewPose();apply(pose,0);});
+/* ---------- ✦ AI summary: pinned beside the page on wide screens, a sheet everywhere else ---------- */
+const aiDock=$('#aiDock'),aiSheet=$('#aiSheet'),aiScrim=$('#aiScrim'),aiHost=document.createElement('div');
+function closeAI(){aiSheet.classList.remove('open');aiScrim.classList.remove('open');}
+const AI=AISummary.mount(aiHost,{close:closeAI});
+function placeAI(){const d=innerWidth>=1120&&innerHeight>=560;body.classList.toggle('ai-docked',d);if(d){closeAI();aiDock.appendChild(aiHost);AI.start();}}
+$('#aiChip').onclick=()=>{aiSheet.appendChild(aiHost);aiSheet.classList.add('open');aiScrim.classList.add('open');AI.start();};
+aiScrim.onclick=closeAI;addEventListener('keydown',e=>{if(e.key==='Escape')closeAI();});
+placeAI();
+addEventListener('resize',()=>{placeAI();if(flying)return;pose=mode==='detail'?zonePose(cur):overviewPose();apply(pose,0);});
 
 /* ---------- start: the page drifts in ---------- */
 pose=overviewPose();
