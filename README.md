@@ -12,7 +12,7 @@
 
 ### Screenshots
 
-<table><tr><td align="center"><img src="screenshot-1.jpg" width="200" alt="The whole CV"><br><sub>The whole CV</sub></td><td align="center"><img src="screenshot-2.jpg" width="200" alt="Zoomed into the profile"><br><sub>Zoomed into the profile</sub></td><td align="center"><img src="screenshot-3.jpg" width="200" alt="Collage layout"><br><sub>Collage layout</sub></td><td align="center"><img src="screenshot-4.jpg" width="200" alt="Playful layout"><br><sub>Playful layout</sub></td></tr></table>
+<table><tr><td align="center"><img src="screenshot-1.jpg" width="200" alt="The whole CV"><br><sub>The whole CV</sub></td><td align="center"><img src="screenshot-2.jpg" width="200" alt="Zoomed into the profile"><br><sub>Zoomed into the profile</sub></td><td align="center"><img src="screenshot-3.jpg" width="200" alt="Collage layout"><br><sub>Collage layout</sub></td><td align="center"><img src="screenshot-4.jpg" width="200" alt="Playful layout"><br><sub>Playful layout</sub></td><td align="center"><img src="screenshot-5.jpg" width="200" alt="AI summary"><br><sub>AI summary</sub></td></tr></table>
 
 The whole CV on one floating page. Tap any section and the view gently zooms into it, where that section has its own design:
 
@@ -31,6 +31,8 @@ Move to the next section with the dropdown, the arrows, a swipe or the arrow key
 - **Sound:** an optional whoosh.
 
 ## ✦ AI summary
+
+<p align="center"><img src="ai-summary.gif" width="260" alt="The AI summary writing itself"></p>
 
 A short AI-written summary of the CV sits beside it, or behind the ✦ button on smaller screens. Out of the box it shows a sample (`aiSample`). To have an AI write it live from your CV, add a key to the `ai` settings in the `window.CV` block:
 
